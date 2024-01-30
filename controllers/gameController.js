@@ -51,7 +51,7 @@ const createGame = asyncHandler(async (req, res) => {
   const game = await Game.create(req.body);
 
   // Send valid json status
-  res.status(200).json({
+  res.status(201).json({
     game,
   });
 });
@@ -70,7 +70,9 @@ const updateGame = asyncHandler(async (req, res) => {
 
   // Update the game - Mongoose Model will validate the rest
   const updatedGame = await Game.findByIdAndUpdate(id, req.body, {
+    // returns updated document
     new: true,
+    // ensures validation runs on the update
     runValidators: true,
   });
 
@@ -81,10 +83,18 @@ const updateGame = asyncHandler(async (req, res) => {
 // @route DELETE /api/games/:id
 // @access Admin
 const deleteGame = asyncHandler(async (req, res) => {
-  res.status(201).json({
-    test: true,
-    type: "deleteGame",
-  });
+  // Intial sanitisation checks
+  const { id } = req.params;
+  const game = await Game.findById(id);
+  if (!game) {
+    res.status(400);
+    throw new Error("Please add a valid id parameter");
+  }
+
+  // Delete the game
+  await game.deleteOne();
+
+  res.status(200).json({ id });
 });
 
 module.exports = { getGames, getGame, createGame, updateGame, deleteGame };
