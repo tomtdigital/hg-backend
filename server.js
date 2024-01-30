@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // __Set Routes__
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/games", require("./routes/gameRoutes"));
 
 // __Set Middleware 2__
 // error handling

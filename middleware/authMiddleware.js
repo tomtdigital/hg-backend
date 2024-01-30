@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 
-const protect = asyncHandler(async (req, res, next) => {
+const userProtect = asyncHandler(async (req, res, next) => {
   let token;
 
   if (
@@ -33,4 +33,10 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = { protect };
+// TODO: update once admin users are enabled
+// eslint-disable-next-line no-unused-vars
+const adminProtect = asyncHandler(async (req, res, next) => {
+  console.log("TODO: protect admin route");
+});
+
+module.exports = { userProtect, adminProtect };
