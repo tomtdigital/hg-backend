@@ -33,7 +33,7 @@ const createGame = asyncHandler(async (req, res) => {
   const now = +new Date().setHours(0, 0, 0, 0);
   const publishDate = +new Date(req.body.publishDate).setHours(0, 0, 0, 0);
   if (now > publishDate) {
-    res.status = 400;
+    res.status(400);
     throw new Error("publishDate property cannot be in the past");
   }
 
@@ -43,7 +43,7 @@ const createGame = asyncHandler(async (req, res) => {
   });
 
   if (publishDateExists) {
-    res.status = 400;
+    res.status(400);
     throw new Error("publishDate already exists");
   }
 
@@ -66,6 +66,16 @@ const updateGame = asyncHandler(async (req, res) => {
   if (!game) {
     res.status(400);
     throw new Error("Please add a valid id parameter");
+  }
+
+  // Checks to see if there is a duplicate date in the db
+  const publishDateExists = await Game.findOne({
+    publishDate: req.body.publishDate,
+  });
+
+  if (publishDateExists && publishDateExists.id !== id) {
+    res.status(400);
+    throw new Error("publishDate already exists");
   }
 
   // Update the game - Mongoose Model will validate the rest
