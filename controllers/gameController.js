@@ -28,7 +28,7 @@ const getGame = asyncHandler(async (req, res) => {
 // @route POST /api/games
 // @access Admin
 const createGame = asyncHandler(async (req, res) => {
-  // Intial sanitsation checks
+  // __Intial sanitisation checks__
   // Checks the date isn't in the past
   const now = +new Date().setHours(0, 0, 0, 0);
   const publishDate = +new Date(req.body.publishDate).setHours(0, 0, 0, 0);
@@ -60,19 +60,21 @@ const createGame = asyncHandler(async (req, res) => {
 // @route PUT /api/games/:id
 // @access Admin
 const updateGame = asyncHandler(async (req, res) => {
-  // Intial sanitisation checks
+  // __Intial sanitisation checks__
+  // Identify if game exists
   const { id } = req.params;
   const game = await Game.findById(id);
+
   if (!game) {
     res.status(400);
     throw new Error("Please add a valid id parameter");
   }
 
-  // Checks to see if there is a duplicate date in the db
+  // Check to see if there is a duplicate date in the db...
   const publishDateExists = await Game.findOne({
     publishDate: req.body.publishDate,
   });
-
+  // ...and it doesn't match this one
   if (publishDateExists && publishDateExists.id !== id) {
     res.status(400);
     throw new Error("publishDate already exists");
