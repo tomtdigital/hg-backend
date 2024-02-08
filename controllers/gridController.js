@@ -71,27 +71,27 @@ const updateGrid = asyncHandler(async (req, res) => {
   res.status(200).json(updatedGrid);
 });
 
-// // @desc Delete grid
-// // @route DELETE /api/grids/:id
-// // @access Admin
-// const deleteGrid = asyncHandler(async (req, res) => {
-//   // Intial sanitisation checks
-//   const { id } = req.params;
-//   const grid = await Grid.findById(id);
-//   if (!grid) {
-//     res.status(400);
-//     throw new Error("Please add a valid id parameter");
-//   }
+// @desc Delete grid
+// @route DELETE /api/grids/:id
+// @access Admin
+const deleteGrid = asyncHandler(async (req, res) => {
+  // Intial sanitisation checks
+  const { id } = req.params;
+  const grid = await Grid.findById(id);
+  if (!grid) {
+    res.status(400);
+    throw new Error("Please add a valid id parameter");
+  }
 
-//   // Delete the grid
-//   await grid.deleteOne();
+  // Delete the grid
+  await grid.deleteOne();
 
-//   res.status(200).json({ id });
-// });
+  res.status(200).json({ id });
+});
 
 module.exports = {
   getGrids,
   createGrid,
   updateGrid,
-  // deleteGrid
+  deleteGrid,
 };

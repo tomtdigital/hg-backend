@@ -4,7 +4,7 @@ const {
   getGrids,
   createGrid,
   updateGrid,
-  //   deleteGrid,
+  deleteGrid,
 } = require("../controllers/gridController");
 
 // const { adminProtect } = require("../middleware/authMiddleware");
@@ -13,11 +13,9 @@ const {
 // router.route("/").get(adminProtect, getGrids).post(adminProtect, createGrid);
 // router
 //   .route("/:id")
-//   .get(adminProtect, getGrid)
 //   .delete(adminProtect, deleteGrid)
 //   .put(adminProtect, updateGrid);
 router.route("/").get(getGrids).post(createGrid);
-router.route("/:id").put(updateGrid);
-// .delete(deleteGrid)
+router.route("/:id").put(updateGrid).delete(deleteGrid);
 
 module.exports = router;
