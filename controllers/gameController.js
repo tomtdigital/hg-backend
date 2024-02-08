@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 const asyncHandler = require("express-async-handler");
 const Game = require("../models/gameModel");
-const User = require("../models/userModel");
 
 // @desc Get games
 // @route GET /api/games
@@ -16,7 +15,7 @@ const getGames = asyncHandler(async (req, res) => {
   res.status(200).json(games);
 });
 
-// @desc Get games
+// @desc Get game
 // @route GET /api/games/:id
 // @access Public
 const getGame = asyncHandler(async (req, res) => {
