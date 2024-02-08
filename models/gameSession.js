@@ -32,10 +32,13 @@ const GameDataSchema = {
   gameComplete: { type: Boolean, required: [true, "Please add gameComplete"] },
 };
 
-const GamesSchema = [
+const gameSessionSchema = mongoose.Schema(
   {
-    _id: false,
-    gameId: {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
+    game: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
@@ -56,17 +59,7 @@ const GamesSchema = [
       },
     },
   },
-];
-
-const userHistorySchema = mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    games: { type: GamesSchema, validate: (v) => Array.isArray(v) },
-  },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("UserHistory", userHistorySchema);
+module.exports = mongoose.model("GameSession", gameSessionSchema);
