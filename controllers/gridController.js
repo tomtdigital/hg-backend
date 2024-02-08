@@ -1,5 +1,3 @@
-// TODO: remove this!
-/* eslint-disable no-unused-vars */
 const asyncHandler = require("express-async-handler");
 const Grid = require("../models/gridModel");
 
@@ -38,40 +36,40 @@ const createGrid = asyncHandler(async (req, res) => {
   });
 });
 
-// // @desc Update grid
-// // @route PUT /api/grids/:id
-// // @access Admin
-// const updateGrid = asyncHandler(async (req, res) => {
-//   // __Intial sanitisation checks__
-//   // Identify if grid exists
-//   const { id } = req.params;
-//   const grid = await Grid.findById(id);
+// @desc Update grid
+// @route PUT /api/grids/:id
+// @access Admin
+const updateGrid = asyncHandler(async (req, res) => {
+  // __Intial sanitisation checks__
+  // Identify if grid exists
+  const { id } = req.params;
+  const grid = await Grid.findById(id);
 
-//   if (!grid) {
-//     res.status(400);
-//     throw new Error("Please add a valid id parameter");
-//   }
+  if (!grid) {
+    res.status(400);
+    throw new Error("Please add a valid id parameter");
+  }
 
-//   // Check to see if there is a duplicate date in the db...
-//   const publishDateExists = await Grid.findOne({
-//     publishDate: req.body.publishDate,
-//   });
-//   // ...and it doesn't match this one
-//   if (publishDateExists && publishDateExists.id !== id) {
-//     res.status(400);
-//     throw new Error("publishDate already exists");
-//   }
+  // Check to see if there is a duplicate name in the db...
+  const nameExists = await Grid.findOne({
+    name: req.body.name,
+  });
+  // ...and it doesn't match this one
+  if (nameExists && nameExists.id !== id) {
+    res.status(400);
+    throw new Error("name already exists");
+  }
 
-//   // Update the grid - Mongoose Model will validate the rest
-//   const updatedGrid = await Grid.findByIdAndUpdate(id, req.body, {
-//     // returns updated document
-//     new: true,
-//     // ensures validation runs on the update
-//     runValidators: true,
-//   });
+  // Update the grid - Mongoose Model will validate the rest
+  const updatedGrid = await Grid.findByIdAndUpdate(id, req.body, {
+    // returns updated document
+    new: true,
+    // ensures validation runs on the update
+    runValidators: true,
+  });
 
-//   res.status(200).json(updatedGrid);
-// });
+  res.status(200).json(updatedGrid);
+});
 
 // // @desc Delete grid
 // // @route DELETE /api/grids/:id
@@ -94,6 +92,6 @@ const createGrid = asyncHandler(async (req, res) => {
 module.exports = {
   getGrids,
   createGrid,
-  // updateGrid,
+  updateGrid,
   // deleteGrid
 };

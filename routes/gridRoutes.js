@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   getGrids,
   createGrid,
-  //   updateGrid,
+  updateGrid,
   //   deleteGrid,
 } = require("../controllers/gridController");
 
@@ -17,6 +17,7 @@ const {
 //   .delete(adminProtect, deleteGrid)
 //   .put(adminProtect, updateGrid);
 router.route("/").get(getGrids).post(createGrid);
-// router.route("/:id").delete(deleteGrid).put(updateGrid);
+router.route("/:id").put(updateGrid);
+// .delete(deleteGrid)
 
 module.exports = router;
