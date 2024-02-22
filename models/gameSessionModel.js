@@ -28,7 +28,7 @@ const GameDataSchema = {
     type: Boolean,
     required: [true, "Please add bonusUnlocked"],
   },
-  bonusGuess: { type: String, required: [true, "Please add bonusGuess"] },
+  bonusGuess: { type: String },
   gameComplete: { type: Boolean, required: [true, "Please add gameComplete"] },
 };
 
@@ -44,6 +44,7 @@ const gameSessionSchema = mongoose.Schema(
     },
     gameData: {
       type: GameDataSchema,
+      _id: false,
       validate: (v) => {
         const keys = [
           "stage",
@@ -55,7 +56,7 @@ const gameSessionSchema = mongoose.Schema(
           "bonusGuess",
           "gameComplete",
         ];
-        return v.every((key) => Object.keys(keys).includes(key));
+        return keys.every((key) => Object.keys(v.toJSON()).includes(key));
       },
     },
   },

@@ -1,7 +1,7 @@
 {
   "name": "hg-dbms",
   "version": "1.0.0",
-  "description": "PoC for MERN Stack",
+  "description": "Hannagrams Backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
