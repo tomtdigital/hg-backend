@@ -18,6 +18,7 @@ const getGameSessions = asyncHandler(async (req, res) => {
 const createGameSession = asyncHandler(async (req, res) => {
   const user = req.user.id;
 
+  //   If the game doesn't exist we can't create a session for it
   const gameExists = await Game.findOne({
     _id: req.body.game,
   });
@@ -27,6 +28,7 @@ const createGameSession = asyncHandler(async (req, res) => {
     throw new Error("game doesn't exist");
   }
 
+  //   If the session already exists we shouldn't create one
   const sessionExists = await GameSession.findOne({
     user,
     game: req.body.game,
