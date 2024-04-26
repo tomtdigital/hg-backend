@@ -24,11 +24,7 @@ const GameDataSchema = {
     type: CompletedGridSchema,
     validate: (v) => Array.isArray(v),
   },
-  bonusUnlocked: {
-    type: Boolean,
-    required: [true, "Please add bonusUnlocked"],
-  },
-  bonusGuess: { type: String },
+  solutionGuess: { type: String },
   gameComplete: { type: Boolean, required: [true, "Please add gameComplete"] },
 };
 
@@ -52,8 +48,7 @@ const gameSessionSchema = mongoose.Schema(
           "score",
           "lastCompletedGrid",
           "finishedGrids",
-          "bonusUnlocked",
-          "bonusGuess",
+          "solutionGuess",
           "gameComplete",
         ];
         return keys.every((key) => Object.keys(v.toJSON()).includes(key));

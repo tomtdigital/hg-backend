@@ -42,7 +42,7 @@ const gameSchema = mongoose.Schema(
       type: MainSchema,
       validate: (v) => Array.isArray(v) && v.length > 0,
     },
-    bonus: {
+    solution: {
       category: {
         type: String,
         required: [true, "Please add a text value for category"],
