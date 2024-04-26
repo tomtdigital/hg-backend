@@ -43,10 +43,8 @@ const gameSchema = mongoose.Schema(
       validate: (v) => Array.isArray(v) && v.length > 0,
     },
     solution: {
-      category: {
-        type: String,
-        required: [true, "Please add a text value for category"],
-      },
+      type: String,
+      required: [true, "Please add a text value for solution"],
     },
     publishDate: { type: Date, required: [true, "Please add a publishDate"] },
   },
