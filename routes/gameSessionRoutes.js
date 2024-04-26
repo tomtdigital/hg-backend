@@ -6,7 +6,7 @@ const {
   createGameSession,
   updateGameSession,
   deleteGameSession,
-} = require("../controllers/gameSession");
+} = require("../controllers/gameSessionController");
 
 const { userProtect } = require("../middleware/authMiddleware");
 
@@ -15,7 +15,7 @@ router
   .get(userProtect, getGameSessions)
   .post(userProtect, createGameSession);
 router
-  .route("/id")
+  .route("/:gameId")
   .get(userProtect, getGameSession)
   .delete(userProtect, deleteGameSession)
   .put(userProtect, updateGameSession);
