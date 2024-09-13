@@ -8,7 +8,7 @@ const WordDataSchema = [
       type: String,
       required: [true, "Please add a text value for direction"],
       validate: (v) => {
-        const regex = /^(up|down)$/g;
+        const regex = /^(across|down)$/g;
         return regexCheck(v, regex);
       },
     },
