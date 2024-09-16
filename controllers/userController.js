@@ -24,13 +24,20 @@ const registerUser = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   //   Create user
-  const user = await User.create({ name, email, password: hashedPassword });
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    member: false,
+    admin: false,
+  });
 
   if (user) {
     res.status(201).json({
       _id: user.id,
       name: user.name,
       email: user.email,
+      member: user.member,
       token: generateToken(user._id),
     });
   } else {
@@ -53,6 +60,7 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      member: user.member,
       token: generateToken(user._id),
     });
   } else {

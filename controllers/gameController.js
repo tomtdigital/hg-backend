@@ -7,8 +7,16 @@ const Game = require("../models/gameModel");
 // @route GET /api/games
 // @access Public
 const getGames = asyncHandler(async (req, res) => {
-  // Sorts all games by created at (most recently 1)
-  const query = Game.find().sort({ publishDate: -1 });
+  const { limit, member } = req.query;
+  // Organise query params relating to game membership status
+  let queryParams = {};
+  if (member === "true") queryParams = { member: true };
+  if (member === "false") queryParams = { member: false };
+
+  // Sorts all games by publish date (most recently 1), using the member/limt params
+  const query = Game.find(queryParams)
+    .sort({ publishDate: -1 })
+    .limit(parseInt(limit) || 0);
   // Only return the fields we're interested in
   query.select("_id publishDate");
   const games = await query.exec();
@@ -36,14 +44,18 @@ const createGame = asyncHandler(async (req, res) => {
     throw new Error("publishDate property cannot be in the past");
   }
 
-  // Checks to see if there is a duplicate date in the db
-  const publishDateExists = await Game.findOne({
+  // Checks to see if there is a duplicate date/member combo in the db
+  const member = req.body.member;
+  const gameExists = await Game.findOne({
     publishDate: req.body.publishDate,
+    member,
   });
 
-  if (publishDateExists) {
+  if (gameExists) {
     res.status(400);
-    throw new Error("publishDate already exists");
+    throw new Error(
+      `${member ? "member" : "free"} game already exists at for this date`
+    );
   }
 
   // Create the game - Mongoose Model will validate the rest

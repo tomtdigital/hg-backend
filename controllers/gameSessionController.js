@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Game = require("../models/gameModel");
 const GameSession = require("../models/gameSessionModel");
-// const User = require("../models/userModel");
 
 // @desc Get game session
 // @route GET /game-sessions/:id

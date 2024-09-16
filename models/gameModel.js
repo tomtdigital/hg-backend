@@ -46,6 +46,7 @@ const gameSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a text value for solution"],
     },
+    member: { type: Boolean, required: [true, "Please add a member field"] },
     publishDate: { type: Date, required: [true, "Please add a publishDate"] },
   },
   {

@@ -9,6 +9,14 @@ const userSchema = mongoose.Schema(
       unique: true,
     },
     password: { type: String, required: [true, "Please add a password"] },
+    member: {
+      type: Boolean,
+      required: [true, "Please specify user membership"],
+    },
+    admin: {
+      type: Boolean,
+      required: [true, "Please specify user role"],
+    },
   },
   { timestamps: true }
 );
