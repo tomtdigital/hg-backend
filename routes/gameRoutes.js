@@ -10,7 +10,7 @@ const {
 
 // const { adminProtect } = require("../middleware/authMiddleware");
 
-// TODO: re-add when admin users active
+// TODO: re-add when admin users active (get is fine, but rest is protected)
 // router.route("/").post(adminProtect, createGame);
 // router
 //   .route("/:id")

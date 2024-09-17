@@ -9,13 +9,13 @@ const userSchema = mongoose.Schema(
       unique: true,
     },
     password: { type: String, required: [true, "Please add a password"] },
-    member: {
+    premium: {
       type: Boolean,
-      required: [true, "Please specify user membership"],
+      required: [true, "No membership status detected"],
     },
     admin: {
       type: Boolean,
-      required: [true, "Please specify user role"],
+      required: [true, "No role detected"],
     },
   },
   { timestamps: true }

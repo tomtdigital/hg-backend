@@ -1,5 +1,3 @@
-// TODO: remove this!
-/* eslint-disable no-unused-vars */
 const asyncHandler = require("express-async-handler");
 const Game = require("../models/gameModel");
 
@@ -7,13 +5,13 @@ const Game = require("../models/gameModel");
 // @route GET /api/games
 // @access Public
 const getGames = asyncHandler(async (req, res) => {
-  const { limit, member } = req.query;
+  const { limit, premium } = req.query;
   // Organise query params relating to game membership status
   let queryParams = {};
-  if (member === "true") queryParams = { member: true };
-  if (member === "false") queryParams = { member: false };
+  if (premium === "true") queryParams = { premium: true };
+  if (premium === "false") queryParams = { premium: false };
 
-  // Sorts all games by publish date (most recently 1), using the member/limt params
+  // Sorts all games by publish date (most recently 1), using the premium/limt params
   const query = Game.find(queryParams)
     .sort({ publishDate: -1 })
     .limit(parseInt(limit) || 0);
@@ -44,17 +42,17 @@ const createGame = asyncHandler(async (req, res) => {
     throw new Error("publishDate property cannot be in the past");
   }
 
-  // Checks to see if there is a duplicate date/member combo in the db
-  const member = req.body.member;
+  // Checks to see if there is a duplicate date/premium combo in the db
+  const premium = req.body.premium;
   const gameExists = await Game.findOne({
     publishDate: req.body.publishDate,
-    member,
+    premium,
   });
 
   if (gameExists) {
     res.status(400);
     throw new Error(
-      `${member ? "member" : "free"} game already exists at for this date`
+      `${premium ? "premium" : "free"} game already exists at for this date`
     );
   }
 

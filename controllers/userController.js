@@ -28,7 +28,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password: hashedPassword,
-    member: false,
+    premium: false,
     admin: false,
   });
 
@@ -37,7 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      member: user.member,
+      premium: user.premium,
       token: generateToken(user._id),
     });
   } else {
@@ -60,7 +60,7 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      member: user.member,
+      premium: user.premium,
       token: generateToken(user._id),
     });
   } else {
