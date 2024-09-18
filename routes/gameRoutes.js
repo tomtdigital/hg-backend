@@ -7,6 +7,7 @@ const {
   updateGame,
   deleteGame,
 } = require("../controllers/gameController");
+const { userProtect } = require("../middleware/authMiddleware");
 
 // const { adminProtect } = require("../middleware/authMiddleware");
 
@@ -16,7 +17,11 @@ const {
 //   .route("/:id")
 //   .delete(adminProtect, deleteGame)
 //   .put(adminProtect, updateGame);
-router.route("/").get(getGames).post(createGame);
-router.route("/:id").get(getGame).delete(deleteGame).put(updateGame);
+router.route("/").get(userProtect, getGames).post(createGame);
+router
+  .route("/:id")
+  .get(userProtect, getGame)
+  .delete(deleteGame)
+  .put(updateGame);
 
 module.exports = router;

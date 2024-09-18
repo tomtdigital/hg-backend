@@ -26,7 +26,18 @@ const getGames = asyncHandler(async (req, res) => {
 // @access Public
 const getGame = asyncHandler(async (req, res) => {
   const game = await Game.findOne({ _id: req.params.id });
-  res.status(200).json(game);
+  if (game.premium) {
+    const user = req.user;
+    // Authorisation checks for premium games
+    if (!user.premium && game.premium) {
+      res.status(403);
+      throw new Error("Unauthorised to view premium content");
+    }
+    res.status(200).json(game);
+  } else {
+    // Release free game data without premium check
+    res.status(200).json(game);
+  }
 });
 
 // @desc Create game
