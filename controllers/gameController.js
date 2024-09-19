@@ -17,7 +17,12 @@ const getGames = asyncHandler(async (req, res) => {
     .limit(parseInt(limit) || 0);
   // Only return the fields we're interested in
   query.select("_id publishDate");
+
   const games = await query.exec();
+  if (!games) {
+    res.status(404);
+    throw new Error("Unable to retrieve games");
+  }
   res.status(200).json(games);
 });
 
@@ -25,19 +30,32 @@ const getGames = asyncHandler(async (req, res) => {
 // @route GET /api/games/:id
 // @access Public
 const getGame = asyncHandler(async (req, res) => {
-  const game = await Game.findOne({ _id: req.params.id });
+  let game;
+  try {
+    game = await Game.findOne({ _id: req.params.id });
+  } catch (error) {
+    if (error.path === "_id") {
+      res.status(400);
+      throw new Error("Bad request");
+    } else {
+      res.status(500);
+      throw new Error("Unable to retrieve game");
+    }
+  }
+  if (!game) {
+    res.status(404);
+    throw new Error("Game not found");
+  }
+
+  // Authorisation checks for premium games
   if (game.premium) {
     const user = req.user;
-    // Authorisation checks for premium games
-    if (!user.premium && game.premium) {
+    if (!user.premium) {
       res.status(403);
       throw new Error("Unauthorised to view premium content");
     }
-    res.status(200).json(game);
-  } else {
-    // Release free game data without premium check
-    res.status(200).json(game);
   }
+  res.status(200).json(game);
 });
 
 // @desc Create game

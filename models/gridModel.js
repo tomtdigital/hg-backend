@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { regexCheck } = require("../utils/regexCheck");
+const { regex } = require("../const/regex");
 
 const WordDataSchema = [
   {
@@ -8,8 +9,7 @@ const WordDataSchema = [
       type: String,
       required: [true, "Please add a text value for direction"],
       validate: (v) => {
-        const regex = /^(across|down)$/g;
-        return regexCheck(v, regex);
+        return regexCheck(v, regex.direction);
       },
     },
     size: {
