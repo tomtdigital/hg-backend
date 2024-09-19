@@ -17,11 +17,17 @@ const getGames = asyncHandler(async (req, res) => {
     .limit(parseInt(limit) || 0);
   // Only return the fields we're interested in
   query.select("_id publishDate");
-
-  const games = await query.exec();
+  // Execute the query and handle errors
+  let games;
+  try {
+    games = await query.exec();
+  } catch (error) {
+    res.status(500);
+    throw new Error("Unable to retrieve games");
+  }
   if (!games) {
     res.status(404);
-    throw new Error("Unable to retrieve games");
+    throw new Error("No games found");
   }
   res.status(200).json(games);
 });
@@ -44,7 +50,7 @@ const getGame = asyncHandler(async (req, res) => {
   }
   if (!game) {
     res.status(404);
-    throw new Error("Game not found");
+    throw new Error("No game found");
   }
 
   // Authorisation checks for premium games
