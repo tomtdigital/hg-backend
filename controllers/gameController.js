@@ -25,10 +25,6 @@ const getGames = asyncHandler(async (req, res) => {
     res.status(500);
     throw new Error("Unable to retrieve games");
   }
-  if (!games) {
-    res.status(404);
-    throw new Error("No games found");
-  }
   res.status(200).json(games);
 });
 
