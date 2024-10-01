@@ -5,25 +5,44 @@ const GameSession = require("../models/gameSessionModel");
 // @desc Get game session
 // @route GET /game-sessions/:id
 const getGameSession = asyncHandler(async (req, res) => {
-  const session = await GameSession.findOne({
-    user: req.user.id,
-    game: req.params.gameId,
-  });
-
+  let session;
+  try {
+    session = await GameSession.findOne({
+      user: req.user.id,
+      game: req.params.gameId,
+    });
+  } catch (error) {
+    res.status(500);
+    throw new Error("Unable to retrieve session");
+  }
   if (!session) {
-    res.status(400);
+    res.status(404);
     throw new Error("session doesn't exist");
   }
-
-  res.status(200).json({ session });
+  res.status(200).json({
+    _id: session.id,
+    game: session.game,
+    gameData: session.gameData,
+  });
 });
+
 // @desc Get game sessions
 // @route GET /game-sessions
 const getGameSessions = asyncHandler(async (req, res) => {
   // Get all user game sessions from the gameId in the params
-  const query = await GameSession.find({ user: req.user.id });
-  res.status(200).json(query);
+  let sessions;
+  try {
+    sessions = await GameSession.find(
+      { user: req.user.id },
+      "_id game gameData"
+    );
+  } catch (error) {
+    res.status(500);
+    throw new Error("Unable to retrieve sessions");
+  }
+  res.status(200).json(sessions);
 });
+
 // @desc post game session
 // @route POST /game-sessions
 const createGameSession = asyncHandler(async (req, res) => {
@@ -51,12 +70,9 @@ const createGameSession = asyncHandler(async (req, res) => {
   }
 
   // Create the session - Mongoose Model will validate the rest
-  const gameSession = await GameSession.create({ user, ...req.body });
-
+  await GameSession.create({ user, ...req.body });
   // Send valid json status
-  res.status(201).json({
-    gameSession,
-  });
+  res.status(201).json(req.body);
 });
 // @desc Update game session
 // @route UPDATE /game-sessions/:id
