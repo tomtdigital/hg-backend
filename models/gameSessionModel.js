@@ -37,10 +37,12 @@ const gameSessionSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "User",
     },
     game: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "Game",
     },
     gameData: {
       type: GameDataSchema,

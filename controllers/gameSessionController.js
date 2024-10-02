@@ -34,7 +34,7 @@ const getGameSessions = asyncHandler(async (req, res) => {
   try {
     sessions = await GameSession.find(
       { user: req.user.id },
-      "_id game gameData"
+      "_id game gameData.gameComplete"
     );
   } catch (error) {
     res.status(500);
