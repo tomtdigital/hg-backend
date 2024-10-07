@@ -3,12 +3,24 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const { connectDB } = require("./config/db");
 const { errorHandler } = require("./middleware/errorMiddleware");
+const cors = require("cors"); // Import the cors package
 
 const app = express();
+
+// __Whitelist Endpoints__
+const corsOptions = {
+  credentials: true,
+  origin: [
+    "http://localhost:3000",
+    "https://hg-frontend-staging-5cefd043eef4.herokuapp.com",
+  ],
+};
 // __Connect Database__
 connectDB();
 
 // __Set Middleware 1__
+// whitelist urls
+app.use(cors(corsOptions));
 // access request body
 app.use(express.json());
 // ensure all data types accepted (if false, only strings/arrays)
