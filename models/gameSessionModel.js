@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 
 const CompletedGridSchema = [
-  {
-    cell: { type: Number, required: [true, "Please add cell"] },
-    guess: { type: String, required: [true, "Please add guess"] },
-    answer: { type: String, required: [true, "Please add answer"] },
-  },
+  [
+    {
+      cell: { type: Number, required: [true, "Please add cell"] },
+      guess: { type: String, required: [true, "Please add guess"] },
+      answer: { type: String, required: [true, "Please add answer"] },
+    },
+  ],
 ];
 
 const GameDataSchema = {
@@ -21,7 +23,7 @@ const GameDataSchema = {
     validate: (v) => Array.isArray(v),
   },
   finishedGrids: {
-    type: CompletedGridSchema,
+    type: [CompletedGridSchema],
     validate: (v) => Array.isArray(v),
   },
   solutionGuess: { type: String },
