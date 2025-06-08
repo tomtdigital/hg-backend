@@ -68,6 +68,7 @@ const createGame = asyncHandler(async (req, res) => {
   // Checks the date isn't in the past
   const now = +new Date().setHours(0, 0, 0, 0);
   const publishDate = +new Date(req.body.publishDate).setHours(0, 0, 0, 0);
+
   if (now > publishDate) {
     res.status(400);
     throw new Error("publishDate property cannot be in the past");
@@ -88,7 +89,16 @@ const createGame = asyncHandler(async (req, res) => {
   }
 
   // Create the game - Mongoose Model will validate the rest
-  const game = await Game.create(req.body);
+  let game;
+
+  try {
+    game = await Game.create(req.body);
+    if (!game) throw new Error("Game creation failed");
+  } catch (error) {
+    res.status(400);
+    console.error(error);
+    throw new Error("Unable to create game");
+  }
 
   // Send valid json status
   res.status(201).json({
