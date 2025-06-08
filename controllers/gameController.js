@@ -81,7 +81,7 @@ const createGame = asyncHandler(async (req, res) => {
   });
 
   if (gameExists) {
-    res.status(400);
+    res.status(409);
     throw new Error(
       `${premium ? "premium" : "free"} game already exists at for this date`
     );

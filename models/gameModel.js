@@ -17,7 +17,9 @@ const DataSchema = [
     },
     details: {
       pronoun: { type: Boolean },
+      plural: { type: Boolean },
       wordCount: { type: String },
+      letterSplit: { type: String },
     },
   },
 ];
@@ -28,6 +30,10 @@ const MainSchema = [
     grid: {
       type: String,
       required: [true, "Please add a text value for grid"],
+    },
+    name: {
+      type: String,
+      required: [true, "Please add a text value for (grid) name"],
     },
     data: {
       type: DataSchema,

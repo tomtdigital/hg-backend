@@ -1,0 +1,143 @@
+{
+  "publishDate": "2025-04-21",
+  "premium": false,
+  "main": [
+    {
+      "grid": "l-5",
+      "data": [
+        {
+          "anagram": "d e l i f",
+          "word": "field",
+          "clue": "Branch"
+        },
+        {
+          "anagram": "p d e",
+          "word": "deep",
+          "clue": "How much I'm in love with you"
+        }
+      ]
+    },
+    {
+      "grid": "o-5",
+      "data": [
+        {
+          "anagram": "p l h e",
+          "word": "help",
+          "clue": "Leela's profession"
+        },
+        {
+          "anagram": "t a r",
+          "word": "tart",
+          "clue": "Leela"
+        },
+        {
+          "anagram": "t h a r e",
+          "word": "heart",
+          "clue": "You have my _____"
+        },
+        {
+          "anagram": "a n p t i",
+          "word": "paint",
+          "clue": "We collect this"
+        }
+      ]
+    },
+    {
+      "grid": "u-7",
+      "data": [
+        {
+          "anagram": "i a t c s u l",
+          "word": "stlucia",
+          "clue": "Chocolatey island",
+          "details": {
+            "wordCount": 2,
+            "pronoun": true
+          }
+        },
+        {
+          "anagram": "r o l x p e",
+          "word": "explore",
+          "clue": "What we'll do this week"
+        },
+        {
+          "anagram": "r d o e a",
+          "word": "adore",
+          "clue": "Wordle opener"
+        }
+      ]
+    },
+    {
+      "grid": "e-7",
+      "data": [
+        {
+          "anagram": "y e v r",
+          "word": "every",
+          "clue": "You're _____thing to me"
+        },
+        {
+          "anagram": "s e t a",
+          "word": "atsea",
+          "clue": "23-31st March",
+          "details": {
+            "wordCount": 2
+          }
+        },
+        {
+          "anagram": "e a d m r",
+          "word": "dream",
+          "clue": "Comes true every day with you"
+        },
+        {
+          "anagram": "e d g n a",
+          "word": "engaged",
+          "clue": "You, this year..."
+        }
+      ]
+    },
+    {
+      "grid": "i-9",
+      "data": [
+        {
+          "anagram": "d b k s i",
+          "word": "skibidi",
+          "clue": "Alpha brain rot"
+        },
+        {
+          "anagram": "m t i k s o",
+          "word": "kisstom",
+          "clue": "Shopping list regular",
+          "details": {
+            "wordCount": 2
+          }
+        },
+        {
+          "anagram": "s e a b m t",
+          "word": "bestmates",
+          "clue": "Me & you / Leela & me",
+          "details": {
+            "wordCount": 2
+          }
+        }
+      ]
+    },
+    {
+      "grid": "v-9",
+      "data": [
+        {
+          "anagram": "a l i p n e",
+          "word": "pineapple",
+          "clue": "She loves _____"
+        },
+        {
+          "anagram": "t b h u l e",
+          "word": "thebubble",
+          "clue": "Reinstated fave place",
+          "details": {
+            "wordCount": 2
+          }
+        }
+      ]
+    }
+  ],
+  "solution": "i love you"
+}
