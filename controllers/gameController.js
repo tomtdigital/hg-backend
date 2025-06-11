@@ -48,7 +48,7 @@ const getGame = asyncHandler(async (req, res) => {
   // Authorisation checks for premium/owner games
   if (game.access === "premium") {
     const user = req.user;
-    if (!user.access === "premium") {
+    if (!user.membership === "premium") {
       res.status(403);
       throw new Error("Unauthorised to view premium content");
     }
@@ -66,6 +66,7 @@ const getGame = asyncHandler(async (req, res) => {
 // @route POST /api/games
 // @access Admin
 const createGame = asyncHandler(async (req, res) => {
+  console.log("Creating game with body:", JSON.stringify(req.body));
   // __Intial sanitisation checks__
   // Checks the date isn't in the past
   const now = +new Date().setHours(0, 0, 0, 0);
