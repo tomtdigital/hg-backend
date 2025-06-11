@@ -83,8 +83,13 @@ const createGame = asyncHandler(async (req, res) => {
     access,
   });
 
+  console.log({ publishDate, now, access, gameExists });
+
   if (gameExists) {
     res.status(409);
+    console.error(
+      `A game already exists with ${access} permission for this date`
+    );
     throw new Error(
       `A game already exists with ${access} permission for this date`
     );
