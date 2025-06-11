@@ -52,9 +52,10 @@ const gameSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a text value for solution"],
     },
-    premium: {
-      type: Boolean,
-      required: [true, "Please confirm membership status"],
+    access: {
+      type: String,
+      enum: ["free", "premium", "owner"],
+      required: [true, "Please confirm access status"],
     },
     publishDate: { type: Date, required: [true, "Please add a publishDate"] },
   },

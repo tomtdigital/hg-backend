@@ -28,8 +28,8 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password: hashedPassword,
-    premium: false,
-    admin: false,
+    membership: "free",
+    roles: ["user"],
   });
 
   if (user) {
@@ -37,7 +37,8 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      premium: user.premium,
+      membership: user.membership,
+      roles: user.roles,
       token: generateToken(user._id),
     });
   } else {
@@ -60,8 +61,8 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      premium: user.premium,
-      admin: user.admin,
+      membership: user.membership,
+      roles: user.roles,
       token: generateToken(user._id),
     });
   } else {

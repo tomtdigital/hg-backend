@@ -9,13 +9,17 @@ const userSchema = mongoose.Schema(
       unique: true,
     },
     password: { type: String, required: [true, "Please add a password"] },
-    premium: {
-      type: Boolean,
-      required: [true, "No membership status detected"],
+    membership: {
+      type: String,
+      enum: ["free", "premium"],
+      required: [true, "Please specify membership type"],
+      default: "free",
     },
-    admin: {
-      type: Boolean,
-      required: [true, "No role detected"],
+    roles: {
+      type: [String],
+      enum: ["user", "admin", "owner"],
+      required: [true, "Please specify at least one role"],
+      default: ["user"],
     },
   },
   { timestamps: true }

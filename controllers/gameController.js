@@ -5,14 +5,10 @@ const Game = require("../models/gameModel");
 // @route GET /api/games
 // @access Public
 const getGames = asyncHandler(async (req, res) => {
-  const { limit, premium } = req.query;
+  const { limit, access } = req.query;
   // Organise query params relating to game membership status
-  let queryParams = {};
-  if (premium === "true") queryParams = { premium: true };
-  if (premium === "false") queryParams = { premium: false };
-
-  // Sorts all games by publish date (most recently 1), using the premium/limt params
-  const query = Game.find(queryParams)
+  const query = Game.find({ access })
+    // Sorts all games by publish date (most recently 1), using the access/liimt params
     .sort({ publishDate: -1 })
     .limit(parseInt(limit) || 0);
   // Only return the fields we're interested in
@@ -49,12 +45,18 @@ const getGame = asyncHandler(async (req, res) => {
     throw new Error("No game found");
   }
 
-  // Authorisation checks for premium games
-  if (game.premium) {
+  // Authorisation checks for premium/owner games
+  if (game.access === "premium") {
     const user = req.user;
-    if (!user.premium) {
+    if (!user.access === "premium") {
       res.status(403);
       throw new Error("Unauthorised to view premium content");
+    }
+  } else if (game.access === "owner") {
+    const user = req.user;
+    if (!user.roles.includes("owner")) {
+      res.status(403);
+      throw new Error("Unauthorised to view owner content");
     }
   }
   res.status(200).json(game);
@@ -74,17 +76,17 @@ const createGame = asyncHandler(async (req, res) => {
     throw new Error("publishDate property cannot be in the past");
   }
 
-  // Checks to see if there is a duplicate date/premium combo in the db
-  const premium = req.body.premium;
+  // Checks to see if there is a duplicate date/access combo in the db
+  const access = req.body.access;
   const gameExists = await Game.findOne({
     publishDate: req.body.publishDate,
-    premium,
+    access,
   });
 
   if (gameExists) {
     res.status(409);
     throw new Error(
-      `${premium ? "premium" : "free"} game already exists at for this date`
+      `A game already exists with ${access} permission for this date`
     );
   }
 
