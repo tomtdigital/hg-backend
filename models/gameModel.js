@@ -18,7 +18,7 @@ const DataSchema = [
     details: {
       pronoun: { type: Boolean },
       plural: { type: Boolean },
-      wordCount: { type: String },
+      additionalInfo: { type: String },
       letterSplit: { type: String },
     },
   },

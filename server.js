@@ -31,6 +31,7 @@ app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/games", require("./routes/gameRoutes"));
 app.use("/api/grids", require("./routes/gridRoutes"));
 app.use("/api/game-sessions", require("./routes/gameSessionRoutes"));
+app.use("/api/migrations", require("./routes/migrationRoutes"));
 
 // __Set Middleware 2__
 // error handling

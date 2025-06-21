@@ -50,7 +50,7 @@
           "word": "stlucia",
           "clue": "Chocolatey island",
           "details": {
-            "wordCount": 2,
+            "additionalInfo": 2,
             "pronoun": true
           }
         },
@@ -79,7 +79,7 @@
           "word": "atsea",
           "clue": "23-31st March",
           "details": {
-            "wordCount": 2
+            "additionalInfo": 2
           }
         },
         {
@@ -107,7 +107,7 @@
           "word": "kisstom",
           "clue": "Shopping list regular",
           "details": {
-            "wordCount": 2
+            "additionalInfo": 2
           }
         },
         {
@@ -115,7 +115,7 @@
           "word": "bestmates",
           "clue": "Me & you / Leela & me",
           "details": {
-            "wordCount": 2
+            "additionalInfo": 2
           }
         }
       ]
@@ -133,7 +133,7 @@
           "word": "thebubble",
           "clue": "Reinstated fave place",
           "details": {
-            "wordCount": 2
+            "additionalInfo": 2
           }
         }
       ]
