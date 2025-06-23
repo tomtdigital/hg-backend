@@ -52,6 +52,11 @@ const gameSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a text value for solution"],
     },
+    description: {
+      type: String,
+      required: false,
+      validate: (v) => v.length <= 500,
+    },
     access: {
       type: String,
       enum: ["free", "premium", "owner"],
